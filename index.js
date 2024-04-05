@@ -1,42 +1,47 @@
-const express = require('express')
-const db = require('./bancoDeDados/conexao')
-const Sequelize = require('sequelize')
-const bodyParser = require('body-parser')
-const exphbs = require('express-handlebars')
-const path = require('path')
+const express = require('express');
+const bancoDeDados = require('./bancoDeDados/conexao');
+const Sequelize = require('sequelize');
+const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
+const path = require('path');
+
 
 
 db.authenticate()
     .then(() => {
-        console.log('Conectou ao Banco de Dados')
+        console.log("Conectou ao Banco de Dados");
     })
-    .catch((erro) => {
-        console.log(
-            'Erro ao conectar' +
-            'no Banco de Dados' + erro
-        )
-    })
+    .catch((error) => {
+        console.log("Erro ao connectar no Banco de Dados" + error);
+    });
 
-const PORT = 3001
+const PORT = 3001;
 
-const app = express()
+const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/jobs', require('./routes/jobs'))
-app.set('views', path.join(__dirname,'views'))
-app.engine('handlebars', exphbs.engine ({defaultlayout: 'main'}))
-app.set('view engine', 'handlebars')
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.render('index')
-})
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res)=> {
+
+    res.render('index', {
+        
+    });
+});
 
 
+app.use('/jobs', require('./routes/jobs'));
+
+app.use('/lanches', require('./routes/Lanches'));
+
+app.use('/cadastros', require('./routes/Cadastro'));
 
 app.listen(PORT, () => {
-    console.log(
-        'Express esta rodando na porta: ' +
-        PORT
-    )
-})
+    console.log(`Listen port: ${PORT}`);
+});
