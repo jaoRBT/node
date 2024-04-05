@@ -1,5 +1,5 @@
 const express = require('express');
-const Pessoa = require('./../models/Cadastros');
+const pessoa = require('./../models/Cadastros');
 const router = express.Router();
 
 router.get('/', (req, res) => {

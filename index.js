@@ -7,7 +7,7 @@ const path = require('path');
 
 
 
-db.authenticate()
+bancoDeDados.authenticate()
     .then(() => {
         console.log("Conectou ao Banco de Dados");
     })
@@ -40,8 +40,8 @@ app.use('/jobs', require('./routes/jobs'));
 
 app.use('/lanches', require('./routes/Lanches'));
 
-app.use('/cadastros', require('./routes/Cadastro'));
-
+app.use('/cadastros', require('./routes/cadastros.js'));
+    
 app.listen(PORT, () => {
     console.log(`Listen port: ${PORT}`);
 });
