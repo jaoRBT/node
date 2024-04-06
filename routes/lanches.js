@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
             console.log("Deu erro!"); });
 });
 
+
 router.put('/', (req, res) => {
     Lanches.update({ nome: 'X-Frango' }, {
         where: {

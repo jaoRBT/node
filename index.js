@@ -38,7 +38,7 @@ app.get('/', (req, res)=> {
 
 app.use('/jobs', require('./routes/jobs'));
 
-app.use('/lanches', require('./routes/Lanches'));
+app.use('/lanches', require('./routes/lanches'));
 
 app.use('/cadastros', require('./routes/cadastros.js'));
     

@@ -3,50 +3,49 @@ const pessoa = require('./../models/Cadastros');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    Pessoa.findAll()
+    pessoa.findAll()
         .then((pessoas) => {
             res.send(pessoas);
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Erro');
+           
         });
 });
 
 router.post('/', (req, res) => {
     let novaPessoa = req.body;
-    Pessoa.create(novaPessoa)
+    pessoa.create(novaPessoa)
         .then(() => {
             res.send('Nova pessoa criada!');
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Erro ao criar pessoa');
+           
         });
 });
 
-router.put('/:id', (req, res) => {
-    let id = req.params.id;
-    let dadosAtualizados = req.body;
-    Pessoa.update(dadosAtualizados, {
+
+router.put('/', (req, res) => {
+    pessoa.update({ nome: 'eduardo' }, {
         where: {
-            id: id
+            id: 2
         }
     })
-        .then(() => {
-            res.send('Pessoa atualizada!');
-        })
+        .then((result) => {
+            res.send('Atualizado com sucesso');
+        }) 
         .catch((error) => {
             console.log(error);
             res.status(500).send('Erro ao atualizar pessoa');
         });
 });
 
+
 router.delete('/:id', (req, res) => {
-    let id = req.params.id;
-    Pessoa.destroy({
+    pessoa.destroy({
         where: {
-            id: id
+            id: 6
         }
     })
         .then(() => {
@@ -54,7 +53,7 @@ router.delete('/:id', (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.status(500).send('Erro ao excluir pessoa');
+            
         });
 });
 
