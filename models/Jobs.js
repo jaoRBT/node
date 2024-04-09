@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
-const bancoDeDados = require('./../bancoDeDados/conexao')
+const db = require('./../bancoDeDados/conexao')
 
-const Jobs = bancoDeDados.define('jobs', {
+const Jobs = db.define('jobs', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,

@@ -1,55 +1,79 @@
-const express = require('express');
-const Lanches = require('./../models/Lanches');
-const router = express.Router();
+const express = require('express')
+const Lanches = require('./../models/Lanches')
 
-router.get('/', (req, res) => {
-    Lanches.findAll()
-        .then((result) => {
-            console.log(result);
-            res.send(result);
-        }).catch((error) => {
-            console.log(error);
-        });
-});
+const router = express.Router()
+// Buscar dados - GET
+router.get('/', (req, resposta) => {
 
-router.post('/', (req, res) => {
-    let novoLanche = req.body;
-    Lanches.create(novoLanche)
-        .then(() => {
-            res.send('Novo lanche criado!');
-        })
-        .catch((error) => {
-            console.log(error);
-            console.log("Deu erro!"); });
-});
-
-
-router.put('/', (req, res) => {
-    Lanches.update({ nome: 'X-Frango' }, {
+    // Buscar
+    Lanches.findAll({
         where: {
             id: 2
         }
     })
-        .then((result) => {
-            res.send('Atualizado com sucesso');
-        }) 
-        .catch((error) => {
-            console.log(error);
-        });
-});
+        .then((dados) => {
+            console.log(dados)
+            resposta.send(dados)
+        })
+        .catch((erro) => {
+            console.log(erro)
+            resposta.send('Deu Erro!')
+        })
 
-router.delete('/', (req, res) => {
-    Lanches.destroy({
+})
+
+// Criar dados - POST
+router.post('/', (req, res) => {
+    let objSalvar = req.body
+
+    Lanches.create(objSalvar)
+        .then(() => {
+            res.send('Criado novo lanche :p')
+        })
+        .catch((erro) => {
+            console.log('erro')
+            console.log(erro)
+            res.send('Deu ERRO!!  ;(')
+        })
+})
+
+// Atualizar dados - PUT
+router.put('/', (req, resposta) => {
+    let objSalvar = {
+        nome: 'X-Tudo'
+    }
+
+    // Atualizar
+    Lanches.update(objSalvar, {
         where: {
-            id: 6
+            id: 2
         }
     })
-        .then((result) => {
-            res.send('Deletado com sucesso');
+        .then((res) => {
+            resposta.send('Atualizado Com Sucesso')
         })
-        .catch((error) => {
-            console.log(error);
-        });
-});
+        .catch((erro) => {
+            console.log(erro)
+            resposta.send('Deu Erro!')
+        })
+})
 
-module.exports = router;
+// Deletar dados - DELETE
+router.delete('/', (req, resposta) => {
+
+    // Deletar
+    Lanches.destroy({
+        where: {
+            id: 2
+        }
+    })
+        .then((data) => {
+            resposta.send('Deletado Com Sucesso')
+        })
+        .catch((erro) => {
+            console.log(erro)
+            resposta.send('Deu Erro!')
+        })
+})
+
+module.exports = router

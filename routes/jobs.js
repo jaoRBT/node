@@ -4,26 +4,41 @@ const Lanches = require('./../models/Lanches')
 
 const router = express.Router()
 
-router.get('/', (requisicao, resposta) => {
+router.get('/adicionar', (req, res) =>{
+    res.render('add')
+}) 
 
-    let novoTrabalho = {
-        titulo: 'Atendente',
-        salario: '4000',
-        empresa: 'Ariosi Lanches',
-        descricao: 'Melhor lanchonete da metropoli Xambre',
-        email: 'ariosilanches@ariosi.com',
-        novo_trabalho: '0'
-    }
+router.post('/add', (req, res) => {
+    let novoTrabalho = req.body
 
-    // Jobs.create(novoTrabalho)
-    //     .then(() => {
-    //         resposta.send('Nova vaga criada!')
-    //     })
-    //     .catch((erro) => {
-    //         console.log(erro)
-    //         resposta.send('Deu Erro!')
-    //     })
+    // Criar
+    Jobs.create(novoTrabalho)
+        .then(() => {
+            res.send('Nova vaga criada!')
+        })
+        .catch((erro) => {
+            console.log(erro)
+            res.send('Deu Erro!')
+        })
 
+})
+
+router.get('/add', (requisicao, resposta) => {
+
+    let novoTrabalho = req.body
+
+    // Criar
+    Jobs.create(novoTrabalho)
+        .then(() => {
+            res.send('Nova vaga criada!')
+        })
+        .catch((erro) => {
+            console.log(erro)
+            res.send('Deu Erro!')
+        })
+
+
+    // Buscar
     // Jobs.findAll({
     //     where: {
     //         id: 1
@@ -38,6 +53,9 @@ router.get('/', (requisicao, resposta) => {
     //         resposta.send('Deu Erro!')
     //     })
 
+
+
+    // Atualizar
     // Jobs.update({ titulo: 'Scrum Master' }, {
     //     where: {
     //         id: 1
@@ -57,6 +75,7 @@ router.get('/', (requisicao, resposta) => {
     // Update
     // Delete
 
+    // Deletar
     Jobs.destroy({
         where: {
             id: 1
