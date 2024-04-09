@@ -54,6 +54,7 @@ app.get('/', (req, res) => {
 
 app.use('/jobs', require('./routes/jobs'))
 app.use('/lanches', require('./routes/lanches'))
+app.use('/pessoas', require('./routes/pessoas'))
 
 app.listen(PORT, () => {
     console.log(
