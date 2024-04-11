@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
-const db = require('./../bancoDeDados/conexao')
+const bancoDeDados = require('./../bancoDeDados/conexao')
 
-const Lanches = db.define('lanche', {
+const Lanches = bancoDeDados.define('lanche', {
     nome: {
         type: Sequelize.STRING
     }

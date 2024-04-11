@@ -1,5 +1,5 @@
 const express = require('express')
-const db = require('./bancoDeDados/conexao')
+const bancoDeDados = require('./bancoDeDados/conexao')
 const Sequelize = require('sequelize')
 const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars')
@@ -7,7 +7,7 @@ const path = require('path')
 const Jobs = require('./models/Jobs')
 
 
-db.authenticate()
+bancoDeDados.authenticate()
     .then(() => {
         console.log('Conectou ao Banco de Dados')
     })
