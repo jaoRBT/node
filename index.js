@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars')
 const path = require('path')
 const Jobs = require('./models/Jobs')
-
+const Op = Sequelize.Op
 
 bancoDeDados.authenticate()
     .then(() => {
@@ -36,18 +36,40 @@ app.use(express.static(path.join(__dirname, 'public')))
   
 
 app.get('/', (req, res) => {
+//app.get('/', (req, res) => { *e* linha 8
 
-    Jobs.findAll({
-        order: [
-            ['createdAT', 'DESC']
-        ]
-    }).then((vagas) =>{ 
-        
-        res.render('index', {
-            jobs: vagas
+    let search = req.query.job
+    let query = '%'+search+'%'
+    
+    if(!search){
+        Jobs.findAll({
+            order: [
+                ['createdAT', 'DESC']
+            ]
+        }).then((vagas) =>{ 
+            
+            res.render('index', {
+                jobs: vagas
+            })
         })
-    })
-    .catch((err) => console.log(err))
+        .catch((err) => console.log(err))
+    }else{
+        Jobs.findAll({
+            where: {titulo: { [Op.like]: query }},
+            order: [
+                ['createdAT', 'DESC']
+            ]
+        }).then((vagas) =>{ 
+            
+            res.render('index', {
+                jobs: vagas,
+                search: search
+            })
+        })
+        .catch((err) => console.log(err))
+    }
+
+
 })
 
 

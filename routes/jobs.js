@@ -10,11 +10,12 @@ router.get('/adicionar', (req, res) =>{
 
 router.post('/add', (req, res) => {
     let novoTrabalho = req.body
+    console.log(novoTrabalho)
 
     // Criar
     Jobs.create(novoTrabalho)
         .then(() => {
-            res.send('Nova vaga criada!')
+            res.redirect('/')
         })
         .catch((erro) => {
             console.log(erro)
